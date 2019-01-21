@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cart #<%= params[:id] %> </h1>
+<p>
+  <strong>User:</strong>
+  <%= @cart.user_id %>
+</p>
+
+<h4>You have <%= @cart_products.count %> items in your cart. </h4>
+<% if @cart_products.count > 0 %>
+<% @cart_products.each do |p| %>
+	<h1> <%= p.product.title rescue nil %>  </h1>
+	<p> Price: $<%= p.product.price rescue nil %>  </p>
+	<p> Inventory Count: <%= p.product.inventory_count rescue nil %> </p>
+	<hr>
+<%end%>
+
+<%else%>
+Cart is empty.
+<%end%>
+
+<h2>Subtotal <%= number_to_currency(@subtotal) %> </h2>
+<h1>Total <%= number_to_currency(@total) %> </h1>
+<hr>
+<%#= link_to 'Edit', edit_cart_path(@cart) %>
+<%= link_to 'Back', products_path %>
+<%= link_to 'Purchase', cart_purchase_path(params[:id]) %>
